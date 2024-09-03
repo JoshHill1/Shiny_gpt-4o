@@ -1,14 +1,16 @@
-import shiny
-from shiny import App, ui, render
+from shiny.express import input, render, ui
+from shinymedia import input_video_clip, audio_spinner
+from query import chat
 
-app_ui = ui.page_fluid(
-  ui.h2("Hello, World!")
-)
+input_video_clip("clip")
 
-def server(input, output, session):
-  pass
+messages = []
 
-app = App(app_ui, server)
 
-if __name__ == "__main__":
-  app.run()
+# Show the chat response
+@render.ui
+def response():
+    with ui.Progress() as p:
+        p.set(message="Chatting...")
+        response_audio = chat(input.clip(), messages, p)
+    return audio_spinner(src=response_audio)

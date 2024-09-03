@@ -1,1 +1,8 @@
+jupyter
+ffmpeg-python
+openai
+python-dotenv
 shiny
+pandas
+matplotlib
+ollama
